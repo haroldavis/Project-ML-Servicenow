@@ -1,0 +1,35 @@
+- Para info, para eliminar una lista de columna, se puede usar el método drop: df.drop(lista_columnas, axis=1) en lugar del bucle for con del.
+- Se eliminan columnas por tener demasiados nulos que hubieran podido tratarse de otra forma: la variable numbcars no tiene la categoría 0:
+  se entiende que el nulo es que el cliente no tiene coche conocido. En este caso, en lugar de eliminar la variable hubiera sido más oportuno rellenar los nulos por 0.
+- Buen tratamiento de los nulos <5%.
+- El tratamiento del resto de columnas con nulos es delicado: se afecta un valor aleatorio según la distribución de la variable.
+  Me hubiera gustado ver el resultado del AUC quitando estas variables, quitando las filas nulas y afectando el valor solo para
+  el data set a predecir, o afectando la media o la mediana para valorar si esta dudosa alternativa es la mejor. 
+- Buen tratamiento de las variables con poca varianza, aunque estoy más cómodo cuando calculamos la varianza en sí más que la frecuencia
+  de las categorías: un 95% de valores iguales significa que queda un 5% de valores diferentes, que en un dataset de 1 millón de
+  observaciones significa 50.000 observaciones. Merece la pena probar con y sin las variables: si no aportan valor, el AUC tiene
+  que ser muy parecido.
+- En general, no modificar los valores del dataset!! En todo caso, preguntar si son correctos, eliminarlos si se desconfía, pero
+  no cambiar sus valores!! En este caso, estáis cambiando los valores negativos de una variable, que puede ser porque aún no ha recibido 
+  el nuevo equipamiento y por eso sale negativo, y además por un valor alto como la media. Ya cambiarlo por 0 me hubiera chirriado,
+  con la media es un error conceptual.
+- Para info, de cara a hacer el código más entendible, se escribe la descripción del objetivo de la función justo debajo de la línea del
+  def entre 3 comillas. Me gusta añadir el input y el output también: me ayuda a escribir la función. 
+- No he podido apreciar el umbral de los outliers, pero tiene buena pinta: bien visto haberlos detectado. 
+  He echado de menos saber de qué cantidad estamos hablando: si son muchos, dejan de ser outliers.
+- Buen tratamiento de las variables altamente correlacionadas.
+- Se eliminan variables por tener demasiadas categorías (16, 19 y 54). Eso son pocas categorías. Me sorprende que se haya hecho todo lo posible
+  para no eliminar variables con muchos nulos, pero eliminamos una variable por tener 16 categorías… 
+  Para las variables con muchas categorías, se hubiera podido agrupar las que tienen poca representación en la categoría “otros”. 
+  O hacer un ordenal encoder para afectar un número a la letra por orden alfabético, por ejemplo.
+- Buen tratamiento de las booleanas.
+- Para el predict, tiene más sentido afectar un valor a los nulos, ya que no podemos quitar la variable que entrenamos. Bien.
+- El entrenamiento está OK. El modelo no es bueno, de por sí, pero otros grupos llegaron a un AUC del 65. 
+  Se agradece la explicación del overfitting. 
+- No se puede valorar la interpretabilidad del modelo por haberlo hecho con el dataset estandarizado, que ha perdido el nombre de las columnas.
+  El notebook de predicción no está bien ejecutado conceptualmente.Lo que se esperaba: con un pickle se guarda el modelo ya entrenado en 
+  el notebook 2. Se estandariza el dataset de predicción sobre las reglas del dataset de entrenamiento y se realiza la predicción.
+  En este caso, se ha vuelto a entrenar el modelo, sin estandarizar los datos del dataset de train, pero se estandarizaron
+  los datos del dataset de predicción además sobre las medias del propio dataset de predicción. 
+  Se tiene que hacer fit_transform sobre el train, y fit sobre el test y el predict. 
+  Un lastima, la predicción no estaría bien en el mundo real a pesar de un ejercicio bastante bien solventado.

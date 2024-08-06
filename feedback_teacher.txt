@@ -1,6 +1,7 @@
 - Para info, para eliminar una lista de columna, se puede usar el método drop: df.drop(lista_columnas, axis=1) en lugar del bucle for con del.
 - Se eliminan columnas por tener demasiados nulos que hubieran podido tratarse de otra forma: la variable numbcars no tiene la categoría 0:
-  se entiende que el nulo es que el cliente no tiene coche conocido. En este caso, en lugar de eliminar la variable hubiera sido más oportuno rellenar los nulos por 0.
+  se entiende que el nulo es que el cliente no tiene coche conocido. En este caso, en lugar de eliminar la variable hubiera sido más oportuno 
+  rellenar los nulos por 0.
 - Buen tratamiento de los nulos <5%.
 - El tratamiento del resto de columnas con nulos es delicado: se afecta un valor aleatorio según la distribución de la variable.
   Me hubiera gustado ver el resultado del AUC quitando estas variables, quitando las filas nulas y afectando el valor solo para
